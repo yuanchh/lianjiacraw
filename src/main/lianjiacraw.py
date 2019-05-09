@@ -130,10 +130,16 @@ def houseinfo(url):
         if(name.get_text()=='税费解析'):
             content_div = contents[i].find('div',class_='content')
             content = content_div.get_text()
-            if(content.find('满二') or content.find('满两')):
-                content='满二'
-            elif(content.find('满五')):
-                content='满五'
+            if(content.find('满二')>0 or content.find('满两')>0):
+                if(content.find('不满')>0):
+                    continue
+                else:
+                    content='满二'
+            elif(content.find('满五')>0):
+                if(content.find('不满')>0):
+                    continue
+                else:
+                    content='满五'
         else:
             continue
         msg.append(content)
@@ -164,10 +170,13 @@ def appendHouse(url):
 def getJiaHeCheng():
     for i in range(1,2):
         print('-----分隔符',i,'-------')
-        if i==1:
-            url ='https://sjz.lianjia.com/ershoufang/c3220023944324723/?sug=%E5%98%89%E5%92%8C%E5%9F%8E'
-        else:
-            url='https://sjz.lianjia.com/ershoufang/pg'+str(i)+'c3211056507395/?sug=%E7%9B%9B%E4%B8%96%E9%95%BF%E5%AE%89'
+        url ='https://sjz.lianjia.com/ershoufang/hy1l2c3220030486991985c3220030686377458c3220030683227637rs%E7%B4%AB%E6%99%B6%E6%82%A6%E5%9F%8E/'
+
+    # if i==1:
+    #         url ='https://sjz.lianjia.com/ershoufang/c3211056503745/?sug=%E5%92%8C%E5%B9%B3%E4%B8%96%E5%AE%B6'
+    #     else:
+    #         url = 'https://sjz.lianjia.com/ershoufang/pg'+str(i)+'rs%E6%98%9F%E6%B2%B3%E7%9B%9B%E4%B8%96%E5%9F%8E/'
+            # url='https://sjz.lianjia.com/ershoufang/pg'+str(i)+'c3211056507395/?sug=%E7%9B%9B%E4%B8%96%E9%95%BF%E5%AE%89'
         appendHouse(url)
 
 def getShengShiChangAn():
